@@ -32,21 +32,15 @@ void Account_Srv_FirstLogIn(){//第一次登陆，要求用户申请管理员帐
 
 			printf("\n\t\tPlease input correct phone number!\n");
 		}
-		while('\n'!=getchar());
 
 		printf("\n\t\tPlease input user name:");
-
-
-		scanf("%[^\n]",p->data.username);
 		while(strlen(p->data.username)<2){
+			scanf("%[^\n]",p->data.username);
 			while('\n'!=getchar());
 			printf("\n\t\tUser name is too short!");
 			printf("\n");
 			printf("\t\tPlease Input again:");
-
-			scanf("%[^\n]",p->data.username);
 		}
-		while('\n'!=getchar());
 		char* ps;
 		set_disp_mode(STDIN_FILENO,0); 
 		getpasswd(p->data.password, sizeof(p->data.password));
