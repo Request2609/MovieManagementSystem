@@ -25,6 +25,7 @@ void Account_Srv_FirstLogIn(){//第一次登陆，要求用户申请管理员帐
 			printf("\n\n\t\tPlease input you phone number:");
 
 			scanf("%[^\n]",p->data.phoneNum);
+			while('\n'!=getchar());
 			if(strlen(p->data.phoneNum)==11){
 				break;
 			}
