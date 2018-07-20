@@ -9,33 +9,10 @@
 static const int STUDIO_PAGE_SIZE = 5;
 static char *KeyName="Studio";
 void Studio_UI_MgtEntry(account_node_t *temp) {//演出厅管理界面
-	char ch;
-	while(1){
-		if(Account_Srv_UserLogIn(temp)==0){
-			printf("\n\t\t  [c]Continue      [F]Forgot password     [E]Exit\n");
-
-
-			printf("\n\t\tInput choice:");
-
-			ch=getchar();
+	if(Account_Srv_UserLogIn(temp)==0){
+			printf("\n\t\tLog failed!press [Enter] to return ......");
 			while('\n'!=getchar());
-
-
-
-			if(ch=='e'||ch=='E'){
-
-				return;
-			}
-			else if(ch=='F'||ch=='f'){
-				Account_UI_SearchPass();
-			}
-			else{
-				continue;
-			}
-			}
-			else{
-				break;
-			}
+			return ;
 		}
 	system("clear");
 
@@ -86,10 +63,10 @@ void Studio_UI_MgtEntry(account_node_t *temp) {//演出厅管理界面
 				Paging_Locate_LastPage(head, paging, studio_node_t);
 				}
 			break;
-		case 'd':
-		case 'D':
-			printf("\n\t\tInput studio ID:");
-			scanf("%d", &id);
+			case 'd':
+			case 'D':
+				printf("\n\t\tInput studio ID:");
+				scanf("%d", &id);
 			if (Studio_UI_Delete(id)) {
 				paging.totalRecords = Studio_Srv_FetchAll(head);
 				List_Paging(head, paging, studio_node_t);
@@ -130,7 +107,7 @@ void Studio_UI_MgtEntry(account_node_t *temp) {//演出厅管理界面
 		}
 	} while (choice != 'e' && choice != 'E');
 
-}
+	}
 
 int Studio_UI_Add(void) {
 	studio_t rec;

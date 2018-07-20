@@ -72,7 +72,7 @@ int Sale_Srv_Add(account_node_t* accountInfo,ticket_node_t* p){//添加订单信
 	h->data.time.minute=time.minute;
 	h->data.time.second=time.second;
 	h->data.value=p->data.price;
-	h->data.type=1;
+	h->data.type=-1;
 	t->data.id=h->data.ticket_id;
 	t->data.status=1;
 	
@@ -100,7 +100,7 @@ int Sale_Srv_ReturnTicket(sale_node_t* p){//退票修改修改订单信息
 	user_time_t time;
 	date=DateNow();
 	time=TimeNow(); 
-	p->data.type=-1;
+	p->data.type=1;
 	p->data.id=EntKey_Perst_GetNewKeys(SaleName);
 	p->data.date.year=date.year;
 	p->data.date.month=date.month;

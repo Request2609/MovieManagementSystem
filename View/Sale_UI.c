@@ -11,9 +11,9 @@
 static const int pagesize=5; 
 void Sale_UI_MgtEntry(account_node_t*p){//订单信息管理界面
 
-	char ch;
-	while(Account_Perst_SaleLogIn(p)==0){
-		printf("\n\n\t\t[S] Search password     [E] Exit     [C] Try again\n\n");
+	if(Account_Perst_SaleLogIn(p)==0){
+		return ;
+	/*	printf("\n\n\t\t[S] Search password     [E] Exit     [C] Try again\n\n");
 		printf("\n\t\tInput you choice:");
 		scanf("%c",&ch);
 		while('\n'!=getchar());
@@ -28,7 +28,7 @@ void Sale_UI_MgtEntry(account_node_t*p){//订单信息管理界面
 		}
 		else{
 			printf("\n\t\tError!\n");
-		}
+		}*/
 	}
  
 

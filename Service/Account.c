@@ -34,12 +34,12 @@ void Account_Srv_FirstLogIn(){//第一次登陆，要求用户申请管理员帐
 		}
 
 		printf("\n\t\tPlease input user name:");
+		scanf("%[^\n]",p->data.username);
+		while('\n'!=getchar());
 		while(strlen(p->data.username)<2){
+			printf("\n\t\tPlease Input again!\n\n");
 			scanf("%[^\n]",p->data.username);
 			while('\n'!=getchar());
-			printf("\n\t\tUser name is too short!");
-			printf("\n");
-			printf("\t\tPlease Input again:");
 		}
 		char* ps;
 		set_disp_mode(STDIN_FILENO,0); 
@@ -69,7 +69,6 @@ int Account_Srv_SearchPass(account_node_t*p){//验证用户信息
 	printf("\n\t\tVirified succeed!\n");
 	printf("\n\t\tPress [Enter] to return.....");
 	while('\n'!=getchar());
-	printf("\n\t\tPlease input new password:");
 	char* ps;
 	set_disp_mode(STDIN_FILENO,0);
 	getpasswd(p->data.password, sizeof(p->data.password));
@@ -120,20 +119,20 @@ int Account_Srv_Add(){//添加用户信息
 	char choice;
 	List_Init(testHead,account_node_t);
 	List_Init(h,account_node_t);
-	p=(account_node_t*)malloc(sizeof(account_node_t));
 	while(1){
+		p=(account_node_t*)malloc(sizeof(account_node_t));
 		printf("\n\t\tInput user username:");
 		scanf("%[^\n]",p->data.username);
 		while('\n'!=getchar());
 		while(strlen(p->data.username)<2){
 			printf("\n\t\tUser name is too short,try again!");
 			printf("\n");
-			printf("\n\t\tInput user name:\n");
+			printf("\n\t\tInput user name:");
 			scanf("%[^\n]",p->data.username);
 			while('\n'!=getchar());
 		}
 		if(Account_Perst_FetchAll(testHead)){
-
+			
 			temp=testHead->next;
 			while(temp!=testHead){
 				if(strcmp(temp->data.username,p->data.username)==0){
@@ -194,7 +193,7 @@ int Account_Srv_Add(){//添加用户信息
 		while('\n'!=getchar());
 		if(choice=='e'||choice=='E')break;
 	}
-	if(Account_Perst_Add(h)==0){
+	if(Account_Perst_Insert(h)==0){
 		return 0;
 	} 
 	printf("\n\t\tAdd  user successfully!Press [Enter] to return......");

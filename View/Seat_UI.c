@@ -27,10 +27,8 @@ void Seat_UI_MgtEntry(){//座位管理界面
 			case 'a':
 			case 'A':
 				printf("\n\t\tInput studio_ID:");
-
 				scanf("%d",&studio_id);
 				printf("\n\t\tInput seats_count:");
-
 				scanf("%d",&num);				
 				Seat_UI_Add(studio_id,num);
 				break;
@@ -39,7 +37,6 @@ void Seat_UI_MgtEntry(){//座位管理界面
 				printf("\n\t\tInput studio_ID:");
 				scanf("%d",&studio_id);
 				Seat_UI_Print(studio_id); 
-
 				break;
 			case 'M':
 			case 'm':
@@ -139,7 +136,7 @@ void Seat_UI_Delete(){//座位删除界面
 		return ;
 	}
 	p->data.roomID=studio_id;
-	printf("\n\t\tInput seat row number and column number��");
+	printf("\n\t\tInput seat row number and column number:");
 	scanf("%d %d",&p->data.row,&p->data.column);
 	if(Seat_Srv_Delete(p)==0){
 		printf("\n\t\tDelete failed!\n");

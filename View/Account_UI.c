@@ -111,9 +111,13 @@ void Account_UI_Delete(){
 	printf("\n\t\t======================================================================================================");
 	if(Account_Srv_Delete()==0){
 		printf("\n\t\tDelete failed!\n");
+		printf("\n\t\tPress [Enter] to return ......");
+		while('\n'!=getchar());
 		return ;
 	}
 	printf("\n\t\tDelete success!\n");
+	printf("\n\t\tPress [Enter] to return ......");
+	while('\n'!=getchar());
 	return ;
 }
 void Account_UI_Modify(){

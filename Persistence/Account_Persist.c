@@ -22,7 +22,7 @@ int Account_Perst_Insert(account_node_t*h){//添加用户信息
 		}
 
 		fwrite(temp,sizeof(account_node_t),1,fp);
-
+		
 	}
 
 	else{
@@ -163,18 +163,20 @@ int Account_Perst_Add(account_node_t*h){//添加新用户
 		if(fp==NULL){
 			return 0;
 		}
-		while(temp!=h){
+		while(1){
 			fwrite(temp,sizeof(account_node_t),1,fp);
 			temp=temp->next;
+			if(temp==h)break;
 		}
 	}else{
 		fp=fopen(accountfile,"ab");
 		if(fp==NULL){
 			return 0;
 		}
-		while(temp!=h){
+		while(1){
 			fwrite(temp,sizeof(account_node_t),1,fp);
 			temp=temp->next;
+			if(temp==h)break;
 		}
 	}
 	fclose(fp);
@@ -221,14 +223,14 @@ int Account_Perst_FetchAdmin(account_node_t*h){//将所有管理员传到链表�
 	return 1;
 } 
 int Account_Perst_Delete(){//删除用户
-	char Name[40];
+	int id;
 	int found=0;
 	FILE *fp,*fp1;
 	account_node_t *temp;
 
 	temp=(account_node_t*)malloc(sizeof(account_node_t));
-	printf("\n\t\tInput delete user:");
-	scanf("%[^\n]",Name);
+	printf("\n\t\tInput delete ID:");
+	scanf("%d",&id);
 	while('\n'!=getchar());
 	if(access(accountfile,0)){
 
@@ -245,8 +247,7 @@ int Account_Perst_Delete(){//删除用户
 	}
 	while(1){
 		if(fread(temp,sizeof(account_node_t),1,fp)<1)break;
-		if((temp->data.type!=9)&&(strcmp(temp->data.username,Name)==0)){
-
+		if(temp->data.id==id){
 			found++;
 		}
 		else{
