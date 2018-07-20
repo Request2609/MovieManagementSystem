@@ -8,7 +8,7 @@
 #include"../Persistence/EntityKey_Persist.h"
 static const int STUDIO_PAGE_SIZE = 5;
 static char *KeyName="Studio";
-void Studio_UI_MgtEntry(account_node_t *temp) {
+void Studio_UI_MgtEntry(account_node_t *temp) {//演出厅管理界面
 	char ch;
 	while(1){
 		if(Account_Srv_UserLogIn(temp)==0){
@@ -155,10 +155,8 @@ int Studio_UI_Add(void) {
 		rec.id=key;
 		printf("\n\t\tInput studio rows number:");
 		scanf("%d", &(rec.rowsCount));
-//		p->data.row=rec.rowsCount;
 		printf("\n\t\tInput studio column number:");
 		scanf("%d", &(rec.colsCount));
-//		p->data.row=rec.colsCount;
 		rec.seatsCount = 0;
 		if (Studio_Srv_Add(&rec)) {
 			newRecCount += 1;
@@ -175,14 +173,13 @@ int Studio_UI_Add(void) {
 	return newRecCount;
 }
 
-int Studio_UI_Modify(int id) {
+int Studio_UI_Modify(int id) {//演出厅修改界面
 	studio_t rec;
 	int rtn = 0;
 	int newrow, newcolumn;
 	seat_list_t list;
 	int seatcount;
 
-	/*Load record*/
 	if (!Studio_Srv_FetchByID(id, &rec)) {
 		printf("\t\tStudio not exist!\n");
 		return 0;
@@ -228,12 +225,11 @@ int Studio_UI_Modify(int id) {
 	return rtn;
 }
 
-int Studio_UI_Delete(int id) {
+int Studio_UI_Delete(int id) {//演出厅删除界面
 
 	int rtn = 0;
 
 	if (Studio_Srv_DeleteByID(id)) {
-		//��ɾ����ӳ��ʱ��ͬʱ���ݷ�ӳ��idɾ����λ�ļ��е���λ
 		if (Seat_Srv_DeleteAllByRoomID(id))
 			printf("\n\t\tDelete success!\n");
 		rtn = 1;

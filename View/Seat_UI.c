@@ -7,7 +7,7 @@
 #include"../Persistence/Studio_Persist.h"
 #include"../Persistence/Seat_Persist.h"
 static const int pagesize=5;
-void Seat_UI_MgtEntry(){
+void Seat_UI_MgtEntry(){//座位管理界面
 	
 	char choice;
 
@@ -54,14 +54,11 @@ void Seat_UI_MgtEntry(){
 			case 'p':
 			case 'P':
 				Seat_UI_PrintAllSeat();
-//				system("clear");
 				break;
 		}
-//		Print_UI_AllRoomId();
 		}while(choice!='e'&&choice!='E');
-//		List_Destroy(h,seat_node_t);
 }
-void Seat_UI_Add(int studio_id,int num){
+void Seat_UI_Add(int studio_id,int num){//座位信息添加
 	studio_t* p=NULL;
 
 	p=(studio_t*)malloc(sizeof(studio_t));
@@ -69,10 +66,7 @@ void Seat_UI_Add(int studio_id,int num){
 		printf("\n\t\tNo the studio!\n");
 		return ;
 	}
-//
 	p->seatsCount=p->seatsCount+num;
-//	p->rowsCount =p->rowsCount;
-//	p->seatsCount=;
 	p->rowsCount=(p->seatsCount%p->colsCount==0)?(p->seatsCount/p->colsCount):(p->seatsCount/p->colsCount+1);
 	if(Studio_Perst_Update(p)==0){
 		printf("\n\t\tStorage data failed!\n");
@@ -82,7 +76,6 @@ void Seat_UI_Add(int studio_id,int num){
 	seat_node_t *h=NULL;
 	List_Init(h,seat_node_t);
 	if(Seat_Perst_FetchAll(studio_id,h)==0){
-//		printf("=============\n");
 		h->data.id=studio_id;
 		h->data.row=0;
 		h->data.column=(*p).colsCount;
@@ -106,7 +99,7 @@ void Seat_UI_Add(int studio_id,int num){
 	return ;
 }
 
-void Seat_UI_PrintAllSeat(){
+void Seat_UI_PrintAllSeat(){//显示所有座位信息
 	studio_t *temp;
 	temp=(studio_t*)malloc(sizeof(studio_t));
 	int studio_id;
@@ -124,13 +117,12 @@ void Seat_UI_PrintAllSeat(){
 		return   ;
 		}
 		h->data.id=studio_id;
-//		printf("%d\n",h->next->data.id);
 	if(Seat_Srv_PrintAllSeat(h)==0){
 			printf("\n\t\tError!\n");
 			return ;
 		}	
 }
-void Seat_UI_Delete(){
+void Seat_UI_Delete(){//座位删除界面
 	int studio_id;
 	seat_node_t* p=NULL;
 	p=(seat_node_t*)malloc(sizeof(seat_node_t));
@@ -155,7 +147,7 @@ void Seat_UI_Delete(){
 	} 
 	printf("\n\t\tHave done!\n");
 }
-void Seat_UI_Print(int schedule_id){
+void Seat_UI_Print(int schedule_id){//座位分布图界面
 	seat_node_t *q=NULL,*h=NULL;
 	List_Init(h,seat_node_t);
 	int i;
@@ -166,10 +158,8 @@ void Seat_UI_Print(int schedule_id){
 		printf("\n\t\tNo seats in the studio!\n");
 		return ;
 	}
-//	printf("\n*%d*\n",h->next->data.id);
 	paging.pageSize=pagesize;
 	paging.offset=0;
-//	printf("\n%d\n",paging.totalRecords); 
 	Paging_Locate_FirstPage(h,paging);
 	do{
 		system("clear");
@@ -217,7 +207,7 @@ void Seat_UI_Print(int schedule_id){
 	}while(choice!='E'&&choice!='e'); 
 	
 }
-void Seat_UI_Modify(){
+void Seat_UI_Modify(){//座位修改界面
 		printf("\n\t\t========================================================================================\n");
 		printf("\t\t*************************************Change seats info**********************************\n");
 		printf("\t\t========================================================================================\n");
@@ -236,7 +226,6 @@ void Seat_UI_Modify(){
 		printf("\n\t\t0.SEAT_NONE       1.SEAT_GOOD       2.SEAT_FULL       9.SEAT_BROKEN\n");
 		printf("\n\t\tChoose a status:");
 		scanf("%d",&status);
-//		if(status!=)
 		p->data.status=status;
 		if(Seat_Srv_ModifyInfo(p)==0){
 			printf("\n\t\tModify failed!\n");
@@ -245,6 +234,3 @@ void Seat_UI_Modify(){
 		printf("\n\t\tModify success!\n"); 
 		return ;
 }
-//void Print_UI_AllRoomId(){
-//	Print_Perst_AllRoomId();
-//}

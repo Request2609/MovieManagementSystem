@@ -27,6 +27,5 @@ int Account_Srv_Delete();
 int Account_Srv_UserLogIn(account_node_t* temp);
 int Account_Srv_Modify();
 int Account_Srv_SearchPass(account_node_t*p);
-//void Account_Srv_Delete(); 
 #endif
 

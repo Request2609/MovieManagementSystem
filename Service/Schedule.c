@@ -1,5 +1,4 @@
 #include<stdlib.h>
-//#include"../Persistence/EntityKey_Persist.h"
 #include<stdio.h>
 #include"../Persistence/EntityKey_Persist.h"
 #include"Schedule.h"
@@ -12,7 +11,7 @@
 #include"../Persistence/Studio_Persist.h"
 #include"../Persistence/Seat_Persist.h"
 static const char*KeyName="Schedule_t";
-int Schedule_Srv_FetchByPlayName(char*name,schedule_node_t*h){//���ݾ�Ŀ���Ʋ��Ҿ�Ŀ�ݳ��ƻ� 
+int Schedule_Srv_FetchByPlayName(char*name,schedule_node_t*h){//根据剧目目名称查询要演出计划
 
 	printf("\n\t\t==========================================================================================");
 	printf("\n\t\t**************************************Search schedule*************************************");
@@ -24,37 +23,30 @@ int Schedule_Srv_FetchByPlayName(char*name,schedule_node_t*h){//���ݾ�Ŀ
 	}
 	return i; 
 } 
-void Schedule_Srv_Add(){
+void Schedule_Srv_Add(){//演出计划添加
 	studio_t *ptr=NULL;
 	ptr=(studio_t*)malloc(sizeof(studio_t));
 	char choice;
-//	long key;
-//	int count=1;
-	
 	printf("\n\t\t=========================================================================================");
 	printf("\n\t\t****************************************Add schedule*************************************");
 	printf("\n\t\t=========================================================================================");
 	schedule_node_t *h;
 	schedule_node_t *p;
 	List_Init(h,schedule_node_t);
-//	h=(schedule_node_t*)malloc(sizeof(schedule_node_t));
 	do{
-			//key=EntKey_Perst_GetNewKeys(scheduleName,count);
 			p=(schedule_node_t*)malloc(sizeof(schedule_node_t));
 			p->data.id=EntKey_Perst_GetNewKeys(KeyName); 
 			printf("\n\t\tInput movie ID:");
-			scanf("%d",&p->data.play_id);//�˴�Ӧ���жϸþ�Ŀ�Ƿ���� 
+			scanf("%d",&p->data.play_id);
 			if(!Schedule_Srv_JudgeIsExsist(p->data.play_id)){
 				printf("\n\t\tThere is no the movie!\n");
 				printf("\n\t\tPress [Enter] to return......");
-//				getchar();
 				while('\n'!=getchar());
 				getchar();
 				return;
 			}
-//			printf("%d",p->data.id);
 			printf("\n\t\tInput studio id:");
-			scanf("%d",&p->data.studio_id);//�˴�Ӧ���жϸ��ݳ����Ƿ����
+			scanf("%d",&p->data.studio_id);
 			if(Studio_Perst_SelectByID(p->data.studio_id,ptr)==0){
 				printf("\n\t\tStudio not exist!");
 				printf("\n\t\tPress [Enter] to return.....");
@@ -76,23 +68,15 @@ void Schedule_Srv_Add(){
 				printf("\n\t\tThere is no so many seats in the studio!\n");
 				return ;
 			}
-//			List_Destroy(s,seat_node_t);
-//			Seat_UI_Add(p->data.studio_id,p->data.seat_count);
-//			h->prev=p->prev;
-//			h->prev->next= p;
-//			p->next=h;
-//			h->prev = p;
 			List_AddTail(h,p); 
 			printf("\n\t\t[E].Exit      [A].Continue");
 			printf("\n\t\tInput you choice:"); 
 			while('\n'!=getchar());
 			choice=getchar();
 	}while(choice!='e'&&choice!='E');
-//	temp->next=h;
-//	h->prev=temp;
 	Schedule_Perst_Insert(h);
 } 
-void Schedule_Srv_Modify(){
+void Schedule_Srv_Modify(){//修改演出计划
 	int plan_id;
 	
 	printf("\n\t\t=======================================================================================");
@@ -123,23 +107,20 @@ void Schedule_Srv_DeleteByID(){
 	while('\n'!=getchar());
 	getchar();
 }
-int Schedule_Srv_JudgeIsExsist(int play_id){
+int Schedule_Srv_JudgeIsExsist(int play_id){//判断演出计划是否存在
 	FILE*fp=fopen("Play.dat","rb");
 	if(fp==NULL){
 		return 0;
 	}
-//	int flag=0;
 	play_node_t*temp;
 	temp=(play_node_t*)malloc(sizeof(play_node_t));
 	while(1){
 		if(fread(temp,sizeof(play_node_t),1,fp)<1)break;
 		if(temp->data.id==play_id){
-//			flag=1;
 			printf("\n\t\tMovie name:%s",temp->data.name);
 			printf("\n\t\tPress [Enter] to return......");
 			while('\n'!=getchar());
 			getchar();
-//			system("pause");
 			return 1;
 		}
 	}

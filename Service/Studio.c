@@ -3,28 +3,27 @@
 #include <stdlib.h>
 #include <assert.h>
 
-int Studio_Srv_Add(studio_t *data) {
+int Studio_Srv_Add(studio_t *data) {//¿¿¿¿¿
 	return Studio_Perst_Insert(data);
 }
 
-int Studio_Srv_Modify(const studio_t *data) {
+int Studio_Srv_Modify(const studio_t *data) {//¿¿¿¿¿
 	return Studio_Perst_Update(data);
 }
 
-int Studio_Srv_DeleteByID(int ID) {
+int Studio_Srv_DeleteByID(int ID) {//¿¿¿¿¿
 	return Studio_Perst_DeleteByID(ID);
 }
 
-int Studio_Srv_FetchByID(int ID, studio_t *buf) {
+int Studio_Srv_FetchByID(int ID, studio_t *buf) {//¿¿¿¿¿¿id¿¿
 	return Studio_Perst_SelectByID(ID, buf);
 
 }
 
-int Studio_Srv_FetchAll(studio_list_t list) {
+int Studio_Srv_FetchAll(studio_list_t list) {//¿¿¿¿¿¿¿¿
 	return Studio_Perst_SelectAll(list);
 }
 
-//Í¨¹ýIDÔÚlistÖÐ²éÕÒ¶ÔÓ¦·ÅÓ³Ìü½áµã
 studio_node_t *Studio_Srv_FindByID(studio_list_t list, int ID){
 	assert(NULL!=list);
 	studio_node_t *ptr=list->next;

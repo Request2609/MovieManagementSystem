@@ -5,8 +5,7 @@
 #include"../Service/Seat.h"
 #include"../Common/List.h"
 static const char *seatfile="Seat.dat";
-//static const char *seatfile_temp="seat_temp.dat";
-int Seat_Perst_Delete(seat_node_t* p){
+int Seat_Perst_Delete(seat_node_t* p){//删除座位
 	seat_node_t* temp=NULL;
 	temp=(seat_node_t*)malloc(sizeof(seat_node_t));
 	if(access(seatfile,0)){
@@ -16,20 +15,13 @@ int Seat_Perst_Delete(seat_node_t* p){
 	if(fp==NULL){
 		return 0;
 	}	
-//	FILE*fp1=fopen(seatfile,"wb");
-//	if(fp==NULL){
-//		return 0;
-//	}
 	p->data.status=SEAT_NONE;
-//	if(p->data.status=SEAT_NONE)printf("\n*****\n");
 	int flag=0;
 	while(1){
 		if(fread(temp,sizeof(seat_node_t),1,fp)<1)break;
-//		printf("%d  %d  %d\n",temp->data.roomID,temp->data.row,temp->data.column);
 		if((temp->data.roomID==p->data.roomID)&&(temp->data.row==p->data.row)&&(temp->data.column==p->data.column)){
 			fpos_t pos;
 			fgetpos(fp,&pos);
-//			if(p->data.status==SEAT_NONE)printf("��λ��\n");
 			fseek(fp,(-1)*(int)(sizeof(seat_node_t)),SEEK_CUR);
 			flag=1;
 			p->data.id=temp->data.id;
@@ -50,7 +42,7 @@ int Seat_Perst_Delete(seat_node_t* p){
 		return 1;
 	}
 }
-int Seat_Perst_FetchAll(int id,seat_node_t* h){
+int Seat_Perst_FetchAll(int id,seat_node_t* h){//将所有座位数据存在链表中
 	FILE*fp;
 	seat_node_t* temp=NULL;
 	if(access(seatfile,0)){
@@ -78,7 +70,7 @@ int Seat_Perst_FetchAll(int id,seat_node_t* h){
 	fclose(fp);
 	return 1;
 }
-int Seat_Perst_Insert(seat_node_t *h){
+int Seat_Perst_Insert(seat_node_t *h){//添加座位
 	FILE*fp;
 	seat_node_t*p;
 	p=(seat_node_t*)malloc(sizeof(seat_node_t));
@@ -94,7 +86,6 @@ int Seat_Perst_Insert(seat_node_t *h){
 			p=p->next;
 			if(p==h)break;
 		}
-//		printf("**\n");
 	}
 	else{
 		fp=fopen(seatfile,"ab+");
@@ -112,13 +103,10 @@ int Seat_Perst_Insert(seat_node_t *h){
 	return 1; 
 }
 
-int Seat_Perst_SameStudioSeat(int id,seat_node_t*h){//����ͬ�ݳ�������λ���ݵ��뵽������ 
-//	int i=0;
+int Seat_Perst_SameStudioSeat(int id,seat_node_t*h){//将所有相同演出厅的座位存在链表中
 	if(access(seatfile,0)){
-//		printf("") 
 		return 0;
 	}
-//	printf("\n****\n");
 	FILE*fp=fopen(seatfile,"rb");
 	if(fp==NULL){
 		return 0;
@@ -129,9 +117,7 @@ int Seat_Perst_SameStudioSeat(int id,seat_node_t*h){//����ͬ�ݳ���
 		if(fread(temp,sizeof(seat_node_t),1,fp)<1){
 			break;
 		}
-//	printf("%d   ",temp->data.roomID);		
-		if(temp->data.roomID==id){//					printf("*%d    %d*    ",temp->data.row,temp->data.column);
-//					i++;
+		if(temp->data.roomID==id){
 
 					List_AddTail(h,temp); 
 		}
@@ -139,18 +125,16 @@ int Seat_Perst_SameStudioSeat(int id,seat_node_t*h){//����ͬ�ݳ���
 			free(temp);
 		}
 	}
-//	printf("\n%d",i);
 	fclose(fp);
 	return 1;
 }
-int Seat_Perst_ModifyInfo(seat_node_t*p){
+int Seat_Perst_ModifyInfo(seat_node_t*p){//修改座位信息
 	if(access("Seat.dat",0)){
 		return 0;
 	}
 	FILE*fp;
 	fp=fopen("Seat.dat","rb+");
 	seat_node_t*temp=NULL;
-//	if(p->data.status==0)printf("\n&&&&&&\n");
 	temp=(seat_node_t*)malloc(sizeof(seat_node_t));
 	while(1){
 		if(fread(temp,sizeof(seat_node_t),1,fp)<1){
@@ -158,7 +142,6 @@ int Seat_Perst_ModifyInfo(seat_node_t*p){
 			break;
 		}
 		if(temp->data.roomID==p->data.roomID&&temp->data.row==p->data.row&&temp->data.column==p->data.column){
-//			printf("\n&&&&&\n");
 			p->data.id=temp->data.id;
 			fpos_t pos;
 			fgetpos(fp,&pos);
@@ -170,15 +153,12 @@ int Seat_Perst_ModifyInfo(seat_node_t*p){
 			return 1;
 		}
 	}
-//	printf("\n)))))\n");
 	fclose(fp);
 	return 0;
 }
 
-int Seat_Perst_Add(seat_node_t* head){
-//	printf("***\n"); 
+int Seat_Perst_Add(seat_node_t* head){//座位添加
 	FILE*fp;
-//	int i=0;
 	seat_node_t*temp=NULL;
 	temp=(seat_node_t*)malloc(sizeof(seat_node_t));
 	temp=head->next; 
@@ -188,7 +168,6 @@ int Seat_Perst_Add(seat_node_t* head){
 			printf("Error!\n");
 			return 0;
 			}
-//		}printf("\n******\n");
 		while(temp!=head){
 			fwrite(temp,sizeof(seat_node_t),1,fp);
 			temp=temp->next;
@@ -200,8 +179,6 @@ int Seat_Perst_Add(seat_node_t* head){
 			return 0;
 		}
 		while(temp!=head){
-//			printf("%d    %d\n",temp->data.column,temp->data.row);
-//			printf("\n*****************\n");
 			fwrite(temp,sizeof(seat_node_t),1,fp);
 			temp=temp->next;
 		}
@@ -210,7 +187,7 @@ int Seat_Perst_Add(seat_node_t* head){
 	free(temp);
 	return 1;
 } 
-int Seat_Perst_CountStudioSeat(seat_node_t*s,int seatNum,int studio_id){
+int Seat_Perst_CountStudioSeat(seat_node_t*s,int seatNum,int studio_id){//记录演出厅座位总数
 	if(access(seatfile,0)){
 		return 0;
 	}
@@ -239,7 +216,7 @@ int Seat_Perst_CountStudioSeat(seat_node_t*s,int seatNum,int studio_id){
 	free(temp);
 	return seatNum;
 }
-int Seat_Perst_FetchByID(seat_node_t*h,int schedule_id){//�����ݳ���ID����λ����������ͬ�ݳ�������λ���������� 
+int Seat_Perst_FetchByID(seat_node_t*h,int schedule_id){//根据座位ID查找座位信息
 	if(access(seatfile,0)){
 		return 0;
 	}
@@ -270,7 +247,7 @@ int Seat_Perst_FetchByID(seat_node_t*h,int schedule_id){//�����ݳ��
 	}
 	return flag; 
 }
-int Seat_Perst_SelectTByID(seat_node_t*temp,int id){
+int Seat_Perst_SelectTByID(seat_node_t*temp,int id){//
 	if(access("seat.dat",0)){
 		return 0;
 	}
@@ -303,9 +280,8 @@ int Seat_Perst_SelectTByID(seat_node_t*temp,int id){
 	}
 	return 1;
 }
-int Seat_Perst_Modify(seat_node_t*p){
+int Seat_Perst_Modify(seat_node_t*p){//修改座位信息
 	if(access(seatfile,0)){
-		printf("\n=====\n");
 		return 0;
 	}
 	FILE*fp;
@@ -316,13 +292,11 @@ int Seat_Perst_Modify(seat_node_t*p){
 	if(fp==NULL){
 		return 0;
 	}
-//	if(p->data.status==1)printf("\n%%%%%%\n");
 	while(1){
 		if(fread(temp,sizeof(seat_node_t),1,fp)<1){
 			break;
 		}
 		if(temp->data.id==p->data.id){
-//			printf("\n%%%%%%\n");
 			temp->data.status=p->data.status;
 			fpos_t pos;
 			fgetpos(fp,&pos);
@@ -340,20 +314,4 @@ int Seat_Perst_Modify(seat_node_t*p){
 	}
 	return 1;
 }
-//int Seat_Perst_Add(seat_node_t* head){
-//	
-//}
-/*typedef enum{
-	SEAT_NONE=0,			//��λ
-	SEAT_GOOD=1,			//����λ
-	SEAT_BROKEN=9			//�𻵵���λ
-}seat_status_t;
 
-typedef struct {
-	int id;					//��λid
-	int roomID;				//�����ݳ���id
-	int row;           		//��λ�к�
-    int column;        		//��λ�к�
-    seat_status_t status;	//��λ�ڸ��е�״̬��0��ʾû����λ��1��ʾ����λ����չ2�ɱ�ʾ��λ����
-} seat_t;
-*/

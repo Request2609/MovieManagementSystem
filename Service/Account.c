@@ -9,7 +9,7 @@
 #include"../Common/passwd.h"
 static const char*accountfile="Account.dat";
 static const char *keyname="Account";
-void Account_Srv_FirstLogIn(){
+void Account_Srv_FirstLogIn(){//第一次登陆，要求用户申请管理员帐号
 	if(access(accountfile,0)){
 		printf("\n\t\t======================================================================================");
 		printf("\n\t\t*****************************Welcome to use the system********************************");
@@ -54,7 +54,6 @@ void Account_Srv_FirstLogIn(){
          		ps++;
       	*ps='\0';
 		set_disp_mode(STDIN_FILENO,1); 
-//		printf("\n%s\n",p->data.password);
 		List_AddTail(h,p);
 		if(Account_Perst_Insert(h)==0){
 			printf("\n\t\tAdd administritor failed!\n");
@@ -67,7 +66,7 @@ void Account_Srv_FirstLogIn(){
 			return;
 		}
 }
-int Account_Srv_SearchPass(account_node_t*p){
+int Account_Srv_SearchPass(account_node_t*p){//验证用户信息
 	if(Account_Perst_SearchInfo(p)==0){
 
 		return 0;
@@ -89,7 +88,7 @@ int Account_Srv_SearchPass(account_node_t*p){
 	} 
 	return 1;
 }
-int  Account_Srv_LogIn(){
+int  Account_Srv_LogIn(){//用户登录
 
 		account_node_t *p=NULL;
 		p=(account_node_t*)malloc(sizeof(account_node_t)); 
@@ -121,15 +120,13 @@ int  Account_Srv_LogIn(){
 		}
 		return 1;
 }
-int Account_Srv_Add(){
+int Account_Srv_Add(){//添加用户信息
 	account_node_t *h,*p,*testHead,*temp;
 	char choice;
-//	char choices;
 	List_Init(testHead,account_node_t);
 	List_Init(h,account_node_t);
 	p=(account_node_t*)malloc(sizeof(account_node_t));
 	while(1){
-//		printf("\n\t\t");
 		printf("\n\t\tInput user username:");
 		scanf("%[^\n]",p->data.username);
 		while('\n'!=getchar());
@@ -210,13 +207,13 @@ int Account_Srv_Add(){
 
 	return 1;
 }
-int Account_Srv_Delete(){
+int Account_Srv_Delete(){//删除用户信息
 	if(Account_Perst_Delete()==0){
 		return 0;
 	}
 	return 1;
 }
-int Account_Srv_UserLogIn1(account_node_t* temp){
+int Account_Srv_UserLogIn1(account_node_t* temp){//分类，用户登陆
 
 	printf("\n\t\t============================================================================================");
 	printf("\n\t\t**************************************User log in*******************************************");
@@ -274,7 +271,7 @@ int Account_Srv_UserLogIn1(account_node_t* temp){
 		system("clear");
 		return 0;
 	}
-int Account_Srv_UserLogIn(account_node_t* temp){
+int Account_Srv_UserLogIn(account_node_t* temp){//用户登录
 
 	printf("\n\t\t============================================================================================");
 	printf("\n\t\t**************************************User log in*******************************************");
@@ -287,14 +284,6 @@ int Account_Srv_UserLogIn(account_node_t* temp){
 		while('\n'!=getchar());
 		return 0;
 	}
-//	int ch;
-//	printf("\n\t\t===============================================================================");
-//	printf("\n\t\t\t0.Others       1.Salesman       2.Manager      9.Administrater");
-//	printf("\n\t\t===============================================================================");
-//	printf("\n\n\t\tChoose user type:")
-//	scanf("%d",&ch);
-//	while('\n'!=getchar());
-//	temp->data.type=ch;
 	printf("\n\t\tInput user number:");
 	scanf("%[^\n]",temp->data.username);
 	while('\n'!=getchar());
@@ -315,12 +304,6 @@ int Account_Srv_UserLogIn(account_node_t* temp){
 			break;
 			}		
 		}
-/*	USR_ANOMY= 0,
-	USR_CLERK=1,
-	USR_MANG=2,
-	USR_ADMIN=9
- * */
-//	printf("*%s*",temp->data.password);
 	account_node_t* p;
 	p=h->next;
 
@@ -338,7 +321,7 @@ int Account_Srv_UserLogIn(account_node_t* temp){
 	system("clear");
 	return 0;
 }
-int Account_Srv_Modify(){
+int Account_Srv_Modify(){//修改用户信息
 	account_node_t *p,*h,*temp;
 	int s,found=0;
 	List_Init(h,account_node_t); 

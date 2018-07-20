@@ -4,7 +4,7 @@
 #include"Account.h"
 #include"../Persistence/Play_Persist.h"
 static char*KeyName="Movie";
-void Play_Srv_Add(){
+void Play_Srv_Add(){//影片的添加
 	int type;
 	char choice;
 	play_node_t*h,*p;
@@ -20,7 +20,6 @@ void Play_Srv_Add(){
             scanf("%[^\n]",p->data.name);
             printf("\n\t\t1.PLAY_TYPE_FILE  2.PLAY_TYPE_OPEAR  3.PLAY_TYPE_CONCERT\n");
             printf("\n\t\tInput new movie type:");
-//            printf("\t\t");
             scanf("%d",&type);
            	switch(type){
            		case 1:
@@ -80,21 +79,20 @@ void Play_Srv_Add(){
 	}while(choice!='e'&&choice!='E');
 	if(Play_Perst_Insert(h)==0){
 		printf("\n\t\tAdd failed!\n");
-//		system("clear");
 	}
 	else{
 
 		printf("\n\t\tAdd success!\n");
 	}
 }
-void Play_Srv_Modify(){
+void Play_Srv_Modify(){//影片的修改
 	Play_Perst_Update();
 }
 
-void Play_Srv_DeleteByID(){
+void Play_Srv_DeleteByID(){//影片的删除
 	Play_Perst_RemByID();
 }
-void Play_Srv_FetchByID(){
+void Play_Srv_FetchByID(){//根据id查询影片信息
 	system("clear");
 	Play_Perst_SelectByID();
 }

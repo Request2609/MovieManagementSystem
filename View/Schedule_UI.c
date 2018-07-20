@@ -5,31 +5,15 @@
 #include"Play_UI.h"
 #include"../Persistence/Schedule_Persist.h"
 static const int pageSize=5;
-//static const int pagesize=5;
-void Schedule_UI_MgtEntry(){
-	//Schedule_Srv_Add();
+void Schedule_UI_MgtEntry(){//演出计划管理界面
 	char choice;
 	int i;
-	/*
-	
-	char choice;
-    int i;
-    play_node_t *h;
-    List_Init(h,play_node_t);
-	Pagination_t paging;
-	paging.offset=0;
-	paging.pageSize=pagesize;
-	paging.totalRecords=Play_Srv_FetchAll(h);
-	play_node_t*temp;
-	
-	*/
 	schedule_node_t*h;
 	List_Init(h,schedule_node_t);
 	Pagination_t paging;
 	paging.offset=0;
 	paging.totalRecords=Schedule_Perst_FetchAll(h);
 	paging.pageSize=pageSize;
-//	printf("%d***\n",Schedule_Perst_FetchAll(h));	
 	schedule_node_t*temp=NULL;
 	Paging_Locate_FirstPage(h,paging);
 	do{
@@ -60,7 +44,6 @@ void Schedule_UI_MgtEntry(){
 		while('\n'!=getchar());
 		printf("\n\t\tInput you choice:");
 		scanf("%c",&choice);
-	//	fflush(stdin); 
 		switch(choice){
 			case 'p':
 			case 'P':
@@ -92,19 +75,18 @@ void Schedule_UI_MgtEntry(){
 				break; 
 		}
 	}while(choice!='e'&&choice!='E');
-//	List_Destroy(h,schedule_node_t);
 	
 }
-void Schedule_UI_Add(){
+void Schedule_UI_Add(){//演出计划添加界面
 	Schedule_Srv_Add();
 }
-void Schedule_UI_Delete(){
+void Schedule_UI_Delete(){//演出计划删除界面
 	Schedule_Srv_DeleteByID();
 }
-void Schedule_UI_Modify(){//�޸��ݳ��ƻ� 
+void Schedule_UI_Modify(){//演出计划修改界面
 	Schedule_Srv_Modify();
 }
-int Schedule_UI_SelectByPlayName(schedule_node_t*h){
+int Schedule_UI_SelectByPlayName(schedule_node_t*h){//根据剧目名称查询演出计划界面
 	char name[50]; 
 	if(Schedule_Srv_FetchByPlayName(name,h)==0)return 0;
 	return Schedule_Perst_SelectByPlayName(name,h);

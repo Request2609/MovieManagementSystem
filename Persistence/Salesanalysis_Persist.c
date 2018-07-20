@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include"../Common/List.h"
-int Salesanalysis_Perst_SelectAllSale(sale_node_t*h){
+int Salesanalysis_Perst_SelectAllSale(sale_node_t*h){//将所有订单信息存到链表
 	if(access("Sale.dat",0)){
 		printf("\t\t Not sold ticket!");
 		return 0;

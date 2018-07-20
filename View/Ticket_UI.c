@@ -9,7 +9,7 @@
 #include"../Persistence/Schedule_Persist.h"
 //static const pagesize=5;
 static const int pagesize=5;
-void Ticket_UI_MgtEntry(){
+void Ticket_UI_MgtEntry(){//票据生成界面
 	char choice;
 	do{
 		printf("\n\t\t======================================================================\n");
@@ -31,13 +31,12 @@ void Ticket_UI_MgtEntry(){
 		}
 	}while(choice!='e'&&choice!='E');
 }
-void Ticket_UI_SearchInfo(int schedule_id){
+void Ticket_UI_SearchInfo(int schedule_id){//搜索票据界面
 	int i;
 	char choice;
 	Pagination_t paging;
 	ticket_node_t*h=NULL,*temp=NULL;
 	List_Init(h,ticket_node_t); 
-//	printf("\n\t\t%d====\n",schedule_id);
 	paging.totalRecords=Ticket_Perst_FetchAll(schedule_id,h);
 	if(!paging.totalRecords){
 		printf("\n\t\tNo tickets!\n");

@@ -9,7 +9,7 @@
 #include"../Service/Salesanalysis.h"
 #include"../Persistence/Salesanalysis_Persist.h"
 static const int pagesize=5; 
-void SalesAanalysis_UI_MgtEntry(account_node_t*p){
+void SalesAanalysis_UI_MgtEntry(account_node_t*p){//订单信息界面
 	char ch;
 	p->data.type=2;
 	while(Account_Srv_UserLogIn(p)==0){
@@ -94,7 +94,7 @@ void SalesAanalysis_UI_MgtEntry(account_node_t*p){
 	}while(ch!='e'&&ch!='E');
 
 }
-void Salesanalysis_UI_AddAllMoney(){
+void Salesanalysis_UI_AddAllMoney(){//根据时间段计算总销售额
 	printf("\n\t\t======================================================================================================");
 	printf("\n\t\t|********************************************Enquire sale data***************************************|\n");
 	printf("\t\t========================================================================================================");

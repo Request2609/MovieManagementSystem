@@ -9,7 +9,7 @@
 #include"Play_UI.h"
 #include"Account_UI.h"
 static const int pagesize=5; 
-void Sale_UI_MgtEntry(account_node_t*p){
+void Sale_UI_MgtEntry(account_node_t*p){//订单信息管理界面
 
 	char ch;
 	while(Account_Perst_SaleLogIn(p)==0){
@@ -38,13 +38,11 @@ void Sale_UI_MgtEntry(account_node_t*p){
 	Pagination_t paging;
 	paging.offset=0;
 	paging.pageSize=pagesize;
-//	printf("\n*********\n");
 	paging.totalRecords=Play_Perst_SelectAll(h);
 	play_node_t*temp;
 	Paging_Locate_FirstPage(h,paging);	
 	char choice;
 	do{
-//		system("clear");
 		printf("\n\n\t\t=======================================================================================================");
 		printf("\n\t\t**********************************************Movie management*******************************************\n");
 		printf("\n\t\t%-10s%-15s%-20s%-20s%-30s%-20s\n","ID","Movie_name","Movie_area","Movie_time","Start_date->End_date","Ticket_price");
@@ -57,8 +55,6 @@ void Sale_UI_MgtEntry(account_node_t*p){
 		printf("\t\t|-----All member:%2d------------------------------------------------------------Page %2d/%2d--------------|\n",paging.totalRecords
 ,Paging_CurPage(paging),Paging_TotalPages(paging));		
 		printf("\n\t\t=========================================================================================================");
-//		printf("\n\t\t**********************************************************************");
-//		printf("\n\t\t=========================================================================================");
 		printf("\n\t\t                                                              					   \n");
 		printf("\t\t   		  	>>>>[P]Previous page             	     >>>>[N]Next page           	   \n");
 		printf("\t\t                                                       						   \n");
@@ -69,7 +65,6 @@ void Sale_UI_MgtEntry(account_node_t*p){
 		printf("\t\t===========================================================================================================");
 		printf("\n\n\t\tInput you choice:");
 		scanf("%c",&choice);
-//		printf("\n**\n");
 		switch(choice){
 				case 'N':
 				case 'n':
@@ -83,7 +78,6 @@ void Sale_UI_MgtEntry(account_node_t*p){
 					break;
 				case 'F':
 				case 'f':
-//					printf("\n****\n");
 					Sale_UI_FindByName();
 					break;
 				case 'B':
@@ -93,8 +87,7 @@ void Sale_UI_MgtEntry(account_node_t*p){
 		}	
 	}while(choice!='e'&&choice!='E'); 
 }
-int  Sale_UI_FindByName(){
-//	char name[50];
+int  Sale_UI_FindByName(){//根据影片名称查询订单信息界面
 	play_node_t* h=NULL;
 	h=(play_node_t*)malloc(sizeof(play_node_t));
 	while('\n'!=getchar());
@@ -103,17 +96,16 @@ int  Sale_UI_FindByName(){
 	scanf("%[^\n]",h->data.name);
 	while('\n'!=getchar());
 	if(Sale_Srv_FetchByName(h)==0){
-//		printf("**\n");
 		printf("\n\t\tYou can't get movie infomation!\n");
 		return 0 ;
 	}
 	return 1; 
 }
-void Sale_UI_SellTicket(account_node_t* accountInfo){//������Ա����Ϣ������������Ʊ��¼ʱҪ�õ� 
+void Sale_UI_SellTicket(account_node_t* accountInfo){//买票管理界面
 	if(Sale_UI_FindByName()==0){
 		return;
 	}
-	ticket_node_t* p=NULL;//����Ʊ�Ľڵ��¼�û��������Ϣ 
+	ticket_node_t* p=NULL;
 	p=(ticket_node_t*)malloc(sizeof(ticket_node_t));
 	printf("\n\t\t===========================================================================================================\n");
 	printf("\n\t\t**************************************************Sale ticket**********************************************\n");
@@ -128,7 +120,7 @@ void Sale_UI_SellTicket(account_node_t* accountInfo){//������Ա��
 	getchar();
 	while('\n'!=getchar());
 } 
-void Sale_UI_ReturnTicket(account_node_t*p){
+void Sale_UI_ReturnTicket(account_node_t*p){//退票界面
 
 	char ch; 
 	while(Account_Perst_SaleLogIn(p)==0){
@@ -156,7 +148,6 @@ void Sale_UI_ReturnTicket(account_node_t*p){
 	printf("\n\t\t=====================================================================================\n");
 	printf("\n\t\t************************************Return ticket************************************\n");
 	s->data.user_id=p->data.id;
-//	free(p);
 	printf("\n\t\tInput sale_ID:");
 
 	scanf("%d",&s->data.id);

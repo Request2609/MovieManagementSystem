@@ -4,6 +4,5 @@
 #include<stdlib.h>
 void Ticket_UI_MgtEntry();
 void Ticket_UI_SearchInfo(int schedule_id);
-//void Ticket_UI_Delete();
 #endif
 

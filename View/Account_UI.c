@@ -5,7 +5,7 @@
 #include"../Service/Account.h"
 #include"../Persistence/Account_Persist.h"
 static const int pagesize=5;
-void Account_UI_MgtEntry(account_node_t* p){
+void Account_UI_MgtEntry(account_node_t* p){//用户管理界面
 	p->data.type=9;
 	if(Account_Srv_UserLogIn(p)==0){
 		printf("\n\t\tLog failed!\n");
@@ -85,7 +85,7 @@ void Account_UI_MgtEntry(account_node_t* p){
 	} while(choice!='E'&&choice!='e');
 	
 }
-int Account_UI_LogIn(){ 
+int Account_UI_LogIn(){ //用户登录界面
 	if(Account_Srv_LogIn()==0){
 
 		return 0;
@@ -127,7 +127,7 @@ void Account_UI_Modify(){
 	printf("\n\t\tModify success!\n");
 	return ;
 }
-void Account_UI_SearchPass(){
+void Account_UI_SearchPass(){//验证信息界面
 	account_node_t*p=NULL;
 	p=(account_node_t*)malloc(sizeof(account_node_t));
 	printf("\t\tInput user name:");

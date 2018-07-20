@@ -13,7 +13,7 @@
 #include "Salesanalysis_UI.h"
 #include"Ticket_UI.h"
 
-void Main_Menu(){
+void Main_Menu(){//影院主界面
 	Account_Srv_FirstLogIn();
 	account_node_t* temp;
 	temp=(account_node_t*)malloc(sizeof(account_node_t));
@@ -120,7 +120,7 @@ void Main_Menu(){
 	} while ('E' != choice && 'e' != choice);
 }
 
-void Queries_Menu(){
+void Queries_Menu(){//查询票务信息界面
 	char name[50];
 	int i,schedule_id;
 	char choice;

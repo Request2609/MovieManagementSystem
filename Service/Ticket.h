@@ -4,17 +4,17 @@
 #include<stdlib.h>
 #include<string.h>
 typedef enum{
-	TICKET_AVL=0,//待售 
-	TICKET_SOLD=1,//已售 
-	TICKET_RESV=9//预留 
+	TICKET_AVL=0,
+	TICKET_SOLD=1,
+	TICKET_RESV=9
 	
 }ticket_status_t;
 typedef struct{
-	int id;//票id 
-	int schedule_id;//演出计划Id 
-	int seat_id;//座位id 
-	int price;//票价 
-	ticket_status_t status;//票状态 
+	int id;
+	int schedule_id;
+	int seat_id;
+	int price;
+	ticket_status_t status;
 }ticket_t;
 typedef struct ticket_node{
 	ticket_t data;

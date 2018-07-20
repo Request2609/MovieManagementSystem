@@ -5,10 +5,10 @@
 #include"../Persistence/Play_Persist.h"
 #include"Account_UI.h"
 static const int pagesize=5;
-void Play_UI_Add(){
+void Play_UI_Add(){//影片添加界面
 	Play_Srv_Add();
 }
-void Play_UI_MgtEntry(){
+void Play_UI_MgtEntry(){//影片管理界面
 	char ch;
 	account_node_t* p;
 	p=(account_node_t*)malloc(sizeof(account_node_t));
@@ -52,7 +52,6 @@ void Play_UI_MgtEntry(){
 	play_node_t*temp;
 	Paging_Locate_FirstPage(h,paging);
 	do{	
-		//printf("%d\n",paging.totalRecords);
 		printf("\n\t\t==========================================================================================================");
 
 		printf("\n\t\t***********************************************Movie_list*************************************************\n");
@@ -92,23 +91,17 @@ void Play_UI_MgtEntry(){
 					system("clear");
 					Play_UI_Add();
 					system("clear");
-//					printf("\n\t\t");
-//					system("clean");
-//					system("pause");
 					break;
 				case 'M':
 				case 'm':
 					system("clear");
 					Play_Srv_Modify();
-//					printf("\n\t\t");
 					system("clear");
 					break;
 				case 'D':
 				case 'd':
 					system("clear");
 					Play_Srv_DeleteByID();
-//					printf("\n\t\t");
-//					system("clean");
 					break;
 				case 'S':
 				case 's':
